@@ -12,7 +12,9 @@ router.post('/', authenticate, async (req, res) => {
 			title: req.body.title,
 			_creator: res.user._id
 		});
-		const doc = await post.save();
+		const doc = await post.save(function (err) {
+			if (err) return console.error(err);
+		});
 
 		res.status(200).json(doc);
 	} catch (err) {
